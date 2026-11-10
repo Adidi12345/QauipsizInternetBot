@@ -30,6 +30,10 @@ public class Main {
             System.err.println("Укажите BOT_TOKEN в переменных окружения IntelliJ IDEA.");
             return;
         }
+        token = token.strip();
+        if (!token.matches("[0-9]{6,15}:[A-Za-z0-9_-]{30,}")) {
+            throw new IllegalStateException("BOT_TOKEN has an invalid format. Check Railway Variables.");
+        }
         api = "https://api.telegram.org/bot" + token + "/";
         try (InputStream stream = Main.class.getResourceAsStream("/topics.json")) {
             if (stream == null) throw new IllegalStateException("topics.json не найден");
